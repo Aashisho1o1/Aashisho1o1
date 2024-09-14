@@ -1,0 +1,26 @@
+
+#Background{
+ position:static;
+ background-size: cover;
+ background-image: url("/alumni_alert/templates/Img/Background.jpg");
+ background-position-x:center;
+ background-position-y:center ;
+height: 80vh;
+
+z-index: -1;
+
+}
+
+.position{
+    position: absolute;
+    left: 8vw;
+    top :5vw
+}
+.location{
+    width: 7vw;
+    height: 10vh;
+}
+.footer{
+    background-color: black;
+    z-index: -1;
+}
