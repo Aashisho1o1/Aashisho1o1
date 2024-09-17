@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Disaster Alerts{% endblock %}
+
+{% block content %}
+    <h1>Disaster Alerts</h1>
+    <ul>
+        {% for alert in alerts %}
+            <li>{{ alert.title }} - Severity: {{ alert.get_severity_display }}</li>
+        {% empty %}
+            <li>No alerts found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home | Alumni Alert System{% endblock %}
+
+{% block content %}
+<div id="Background">
+    <!-- Weather Forecasting Section -->
+    <div class="position text-white bg-dark border border-4 border-primary opacity-75 w-75 p-5 m-5">
+        <!-- Weather Forecasting Content -->
+        <!-- Update image paths using {% static %} -->
+        <div class="container text-center">
+            <div class="row row-cols-auto pb-3">
+                <div class="col">Temperature</div>
+                <div class="col">Wind</div>
+                <div class="col">Prediction</div>
+                <div class="col">Humidity</div>
+            </div>
+            <div class="row row-cols-auto">
+                <!-- Repeat this block for each time slot -->
+                <div>
+                    <div class="col">1AM</div>
+                    <div class="col">
+                        <img src="{% static 'core/static/core/img/Weather.png' %}" class="location" alt="Weather">
+                    </div>
+                    <div class="col fs-5">32 &deg;</div>
+                </div>
+                <!-- Add more time slots as needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Weekly Disaster Updates -->
+<div class="container pt-5 mt-5">
+    <h2>Weekly Disaster</h2>
+    <div class="container">
+        <div class="row text-center">
+            <div class="border border-primary mx-4 w-25">
+                <img src="{% static 'core/img/Location.png' %}" class="location" alt="Current Location Alert">
+                <p>Current Location CAP Alert</p>
+            </div>
+            <div class="border border-primary mx-4 w-25">
+                <img src="{% static 'core/img/Map.png' %}" class="location" alt="World Alert">
+                <p>All World CAP Alert</p>
+            </div>
+            <div class="border border-primary mx-4 w-25">
+                <img src="{% static 'core/img/Weather.svg' %}" class="location" alt="Forecast">
+                <p>Forecast</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Google Maps Embed -->
+<div class="container pt-4">
+    <div class="overflow-y-auto">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57173176.00670386!2d100!3d28.999999999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3663f18a24cbe857%3A0xa9416bfcd3a0f459!2sAsia!5e0!3m2!1sen!2snp!4v1726216525327!5m2!1sen!2snp"
+            width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</div>
+
+<!-- About Us Section -->
+<div class="container mt-5 pt-5 mb-5 pb-5 bg-info-subtle">
+    <h4>About</h4>
+    <p>
+        National Disaster Management Authority (NDMA) under the chairmanship of the Hon'ble Prime Minister of India has
+        envisioned a CAP-based Integrated Alert System on a Pan-India basis. The project involves near real-time
+        dissemination of early warnings through multiple means of technology using geo-intelligence.
+    </p>
+</div>
+{% endblock %}

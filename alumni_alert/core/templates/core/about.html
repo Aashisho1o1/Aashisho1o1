@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}About | Alumni Alert System{% endblock %}
+
+{% block content %}
+<!-- FAQs BOX -->
+<div class="container border border-3 p-5 m-5 accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Why does this website exist?
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                This website will fetch the information on natural disaster around the world and compare with our alumni database. if any natural disaster occur near our alumni, it will notify the employees in alumni relation through email.
+            </div>
+        </div>
+    </div>
+    <!-- Add more accordion items as needed -->
+</div>
+{% endblock %}

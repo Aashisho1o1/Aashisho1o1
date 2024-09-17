@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Alumni List{% endblock %}
+
+{% block content %}
+    <h1>Alumni List</h1>
+    <ul>
+        {% for alumnus in alumni %}
+            <li>{{ alumnus.name }} - {{ alumnus.email }}</li>
+        {% empty %}
+            <li>No alumni found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
