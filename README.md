@@ -1,6 +1,6 @@
 # Hi there, I'm Aashish Sunar 👋
 
-## 🚀 Full Stack Developer | AI/ML Engineer | Production System Builder
+## Full Stack Developer
 
 MS in Information Systems & Technology @ Claremont Graduate University (4.0 GPA) | Full Stack Developer @ Soka University
 
@@ -27,7 +27,7 @@ Database:  SQL • PostgreSQL • SQLite • MongoDB
 Tools:     Git • AWS • REST APIs • Docker
 ```
 
-**Currently Learning:** Advanced System Design • MLOps • Distributed Systems
+**Currently Learning:** Advanced System Design • MLOps • Distributed Systems • Java
 
 ---
 
@@ -35,7 +35,7 @@ Tools:     Git • AWS • REST APIs • Docker
 
 #### [🎭 OwenWrites - AI Writing Platform](https://github.com/Aashisho1o1/dialogue-consistency-checker)
 Production-ready ML pipeline for character voice consistency detection in fiction writing
-- Built advanced dialogue analysis system using LLMs and NLP
+- Built an advanced dialogue analysis system using LLMs and NLP
 - Created persona-based chatbot featuring classic authors (Maya Angelou, Hemingway, etc.)
 - Selected for UCR INNOVAR Entrepreneurship Program
 - **Tech:** TypeScript, Chrome Built-in Prompt API, ML, React
@@ -57,14 +57,12 @@ Real-time emergency alert system serving 2,000+ users globally
 Full-stack e-commerce solution with payment integration
 - Secure payment gateway integration and inventory management
 - Optimized relational database schema for product catalog
-- Successfully operating business generating consistent revenue
+- Successfully operating a business generating consistent revenue
 - **Tech:** JavaScript, HTML/CSS, SQL, Payment APIs
 
 ---
 
 ### 📊 GitHub Stats
-
-![Aashish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Aashisho1o1&show_icons=true&theme=radical&hide_border=true&include_all_commits=true&count_private=true)
 
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Aashisho1o1&layout=compact&theme=radical&hide_border=true)
 
