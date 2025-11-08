@@ -20,8 +20,8 @@ Currently building AI-powered applications with production-grade ML pipelines an
 
 **Languages & Frameworks**
 ```
-Frontend:  React • TypeScript • JavaScript • HTML/CSS • Tailwind
-Backend:   Python • Node.js • Flask • Express.js
+Frontend:  React • TypeScript • JavaScript • HTML/CSS 
+Backend:   Python 
 AI/ML:     LLMs • OpenAI API • NLP • TensorFlow • ML Pipelines
 Database:  SQL • PostgreSQL • SQLite • MongoDB
 Tools:     Git • AWS • REST APIs • Docker
