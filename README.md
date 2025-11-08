@@ -98,9 +98,10 @@ English • Hindi • Nepali • Mandarin Chinese
 
 ### 📫 Let's Connect
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([[https://www.linkedin.com/in/aashish-sunar/)](https://www.linkedin.com/in/aashish-sunar/))
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:aashish.sunar@cgu.edu)
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://www.owenwrites.co)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aashish-sunar/)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:aashishsunar.01@gmail.com)
+
+**📧 Email:** aashishsunar.01@gmail.com | aashish.sunar@cgu.edu
 
 ---
 
