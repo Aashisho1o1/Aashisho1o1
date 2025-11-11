@@ -19,15 +19,39 @@ Currently building AI-powered applications with production-grade ML pipelines an
 ### 🛠️ Tech Stack
 
 **Languages & Frameworks**
-```
-Frontend:  React • TypeScript • JavaScript • HTML/CSS 
-Backend:   Python 
-AI/ML:     LLMs • OpenAI API • NLP • TensorFlow • ML Pipelines
-Database:  SQL • PostgreSQL • SQLite • MongoDB
-Tools:     Git • AWS • REST APIs • Docker
-```
 
-**Currently Learning:** Advanced System Design • MLOps • Distributed Systems • Java
+**Frontend:**
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+**Backend:**
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+**AI/ML:**
+![LLMs](https://img.shields.io/badge/LLMs-412991?style=for-the-badge&logo=openai&logoColor=white)
+![OpenAI API](https://img.shields.io/badge/OpenAI_API-412991?style=for-the-badge&logo=openai&logoColor=white)
+![NLP](https://img.shields.io/badge/NLP-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![ML Pipelines](https://img.shields.io/badge/ML_Pipelines-00ADD8?style=for-the-badge&logo=python&logoColor=white)
+
+**Database:**
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+**Tools:**
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![REST APIs](https://img.shields.io/badge/REST_APIs-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+---
+
+**Currently Learning:** Advanced System Design • MLOps • Distributed Systems • Agentic AI Chatbot Dev
 
 ---
 
@@ -105,7 +129,7 @@ English • Hindi • Nepali • Mandarin Chinese
 
 ---
 
-💡 **Open to full-time Software Engineering opportunities** | OPT/CPT visa sponsorship needed
+💡 **Open to full-time Software Development opportunities** 
 
 ⚡ **Fun fact:** I'm an aspiring novelist working on an epic fantasy novel while building AI tools for writers!
 
