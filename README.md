@@ -4,7 +4,7 @@
 
 MS in Information Systems & Technology @ Claremont Graduate University (4.0 GPA) | Full Stack Developer @ Soka University
 
-Currently building AI-powered applications with production-grade ML pipelines and scalable backend systems. Passionate about leveraging LLMs, natural language processing, and intelligent automation to solve real-world problems.
+Currently building AI-powered applications with production-grade ML pipelines and scalable backend systems. Passionate about web dev, leveraging LLMs, natural language processing, and intelligent automation to solve real-world problems.
 
 ---
 
