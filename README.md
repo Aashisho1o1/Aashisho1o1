@@ -8,14 +8,6 @@ Currently building AI-powered applications with production-grade ML pipelines an
 
 ---
 
-### 💼 What I'm Working On
-
-- 🎯 **OwenWrites** - AI writing platform helping fiction writers maintain character consistency ([www.owenwrites.co](https://www.owenwrites.co))
-- 🏥 Building an academic advising chatbot at CISAT, Claremont Graduate University
-- 🌍 Operating a family e-commerce jewelry business with modern tech stack
-
----
-
 ### 🛠️ Tech Stack
 
 **Languages & Frameworks**
@@ -48,6 +40,14 @@ Currently building AI-powered applications with production-grade ML pipelines an
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![REST APIs](https://img.shields.io/badge/REST_APIs-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+---
+
+### 💼 What I'm Working On
+
+- 🎯 **OwenWrites** - AI writing platform helping fiction writers maintain character consistency ([www.owenwrites.co](https://www.owenwrites.co))
+- 🏥 Building an academic advising chatbot at CISAT, Claremont Graduate University
+- 🌍 Operating a family e-commerce jewelry business with modern tech stack
 
 ---
 
