@@ -4,7 +4,9 @@ Software engineer in Claremont, California. MS in AI-Driven Innovation at Clarem
 
 I build AI systems that check their own work before anyone relies on them. The model proposes and plain code decides: a quote from an SEC filing is verified before it ships, a chess explanation is held to what Stockfish found, and a map query is checked against the real schema before it runs.
 
-**Portfolio:** [aashisho1o1.github.io/Aashisho1o1](https://aashisho1o1.github.io/Aashisho1o1/) &nbsp;·&nbsp; **Resume:** [PDF](Aashish_Sunar_Resume.pdf) &nbsp;·&nbsp; **This weekend:** at Cal Hacks 13.0 in San Francisco
+**[See my portfolio →](https://aashisho1o1.github.io/Aashisho1o1/)** &nbsp;·&nbsp; **[Resume (PDF)](docs/Aashish_Sunar_Resume.pdf)** &nbsp;·&nbsp; This weekend: at Cal Hacks 13.0 in San Francisco
+
+[![Aashish Sunar portfolio](assets/portfolio.jpg)](https://aashisho1o1.github.io/Aashisho1o1/)
 
 ---
 
@@ -12,7 +14,7 @@ I build AI systems that check their own work before anyone relies on them. The m
 
 | Project | What it does | The check that matters |
 | :-- | :-- | :-- |
-| [**RipplX**](https://github.com/Aashisho1o1/RipplX) | Reads a company's SEC filings against the prior period and writes a short brief of what changed. | Every quote is verified at its exact filing, section, and offset, and every number against XBRL. The model never does arithmetic. |
+| [**RipplX**](https://github.com/Aashisho1o1/RipplX) | Reads a company's SEC filings against the prior period and writes a short brief of what changed. ([live site](https://rippl-x-nine.vercel.app)) | Every quote is verified at its exact filing, section, and offset, and every number against XBRL. The model never does arithmetic. |
 | [**Hazard Proximity MCP**](https://github.com/Aashisho1o1/geoassist-mcp) | Lets an AI assistant find the hospitals and schools nearest an active wildfire or storm. ([live map](https://aashisho1o1.github.io/geoassist-mcp/)) | The assistant writes the filter, and TypeScript checks it against the live schema before it reaches ArcGIS. |
 | [**Chess Coach**](https://github.com/Aashisho1o1/Chess) | Java and Spring Boot service that explains your games. | Stockfish decides what is true. Claude only explains it, and a verifier replaces any explanation the engine doesn't back. |
 | [**Traume**](https://github.com/Aashisho1o1/Trauma-Informed-Chatbot) | Trauma-informed support chatbot prototype. | Crisis checks run before the model is called, output is filtered after, and an adversarial test suite fails the build below threshold. |
