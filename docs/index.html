@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aashish Sunar, Software Engineer</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Aashish Sunar builds AI systems that check their own work: SEC filing research, an MCP server for hazard maps, a chess coach on Stockfish, and a ledger that carried 200+ customers.">
+<meta name="description" content="Aashish Sunar builds AI systems that check their own work: SEC filing research, a student advising assistant, a guarded support chatbot, and a ledger that carried 200+ customers.">
 <meta property="og:title" content="Aashish Sunar, Software Engineer">
 <style>
   /* Night: the hero and the closing band. Always dark, because the Earth imagery is night. */
@@ -167,7 +167,7 @@
   </div>
   <div class="wrap hero-text">
     <h1>Aashish Sunar<span>AI systems that check their own work</span></h1>
-    <p class="lede">I build software where the model proposes and plain code decides what a person sees: research on SEC filings, a tool that lets an AI assistant find hospitals near a wildfire, a chess coach that answers to Stockfish, and a ledger that carried 200+ customers.</p>
+    <p class="lede">I build software where the model proposes and plain code decides what a person sees: research on SEC filings, an advising assistant that holds back anything the policy documents don't say, a support chatbot that checks itself before it replies, and a ledger that carried 200+ customers.</p>
     <nav aria-label="Contact and sections">
       <ul>
         <li><a href="#experience">Experience</a></li>
@@ -245,8 +245,8 @@
 
     <dl class="skills">
       <dt>Languages</dt><dd>Python, TypeScript, JavaScript, Java, SQL, C, C++</dd>
-      <dt>Frameworks</dt><dd>React, Next.js, Node.js, Express, FastAPI, Spring Boot</dd>
-      <dt>Data and AI</dt><dd>PostgreSQL, SQLite, MongoDB, Redis, Anthropic, OpenAI, and Gemini APIs, MCP, retrieval over vector databases, LLM-as-judge evaluation</dd>
+      <dt>Frameworks</dt><dd>React, Next.js, Node.js, Express, FastAPI</dd>
+      <dt>Data and AI</dt><dd>PostgreSQL, SQLite, MongoDB, Redis, Anthropic, OpenAI, and Gemini APIs, retrieval over vector databases, LLM-as-judge evaluation</dd>
       <dt>Testing and DevOps</dt><dd>Playwright, unit and integration testing, Git, GitHub Actions, Docker, AWS</dd>
     </dl>
   </div>
@@ -299,34 +299,6 @@
         </div>
       </article>
 
-      <article class="project" id="mcp">
-        <div class="meta">
-          <strong>Claremont, California</strong><span class="coord">34.10° N, 117.71° W</span>
-          October 2026<br>TypeScript, MCP SDK, NASA EONET, Esri Living Atlas
-          <div class="links"><a href="https://aashisho1o1.github.io/geoassist-mcp/">Live map</a><a href="https://github.com/Aashisho1o1/geoassist-mcp">Source code</a></div>
-        </div>
-        <div>
-          <h3>Hazard Proximity, an MCP server</h3>
-          <p>When a wildfire is burning, the first questions are simple ones. Which hospitals are close to it? Which schools might need to close? This server lets anyone using an AI assistant such as Claude Desktop ask in plain English and get a short list of nearby places, closest first, with phone numbers.</p>
-          <p>The model proposes and the server decides. There is no language model inside the server. The assistant writes the filter, and plain TypeScript checks it against the live layer schema before anything is sent. A guessed field name that quietly returns an empty map could be read as "there is no hospital nearby," so it gets a correction the assistant can act on instead.</p>
-<pre class="exchange" aria-label="Example tool call and response"><span class="line"><span class="who">assistant calls</span>find_nearby(dataset: "hospitals", where: "TRAUMMA = 'LEVEL I'")</span><span class="line"><span class="who">server returns</span><span class="err">Unknown field 'TRAUMMA'. Did you mean 'TRAUMA'?</span></span><span class="line"><span class="who">assistant retries</span>where: "TRAUMA LIKE 'LEVEL I%'", and gets a sorted list</span></pre>
-          <p>Testing against the live hospital layer turned up a quieter problem. The trauma field is free text, and Level I alone is written 16 different ways. An exact filter found 98 open Level I hospitals in the US and missed 142, with no error. So the server now sends the model every value of a coded field and tells it to match every spelling.</p>
-        </div>
-      </article>
-
-      <article class="project" id="chess">
-        <div class="meta">
-          <strong>Claremont, California</strong><span class="coord">34.10° N, 117.71° W</span>
-          September 2026<br>Java 21, Spring Boot 3, Stockfish 16, Claude
-          <div class="links"><a href="https://github.com/Aashisho1o1/Chess">Source code</a></div>
-        </div>
-        <div>
-          <h3>Chess Coach</h3>
-          <p>A coaching service where Stockfish decides what is true and the language model decides only how to say it. The engine's analysis becomes a fixed set of facts about each move, Claude turns those facts into an explanation, and a verifier checks the explanation against the facts. If it fails, a plain template takes its place.</p>
-          <p>Most of the real work was in the engine's numbers. Scores are converted to White's point of view once, at the boundary. Mate scores sit on the same scale as material instead of being counted as material. A checkmate on the board is reported as the end of the game, not as a blunder. A famous move from Morphy's Opera Game is flagged as a blunder at depth 12 and not at depth 16, so quick searches are for responsiveness, and the coach waits for a deeper one before calling a move a mistake.</p>
-        </div>
-      </article>
-
       <article class="project" id="traume">
         <div class="meta">
           <strong>Claremont, California</strong><span class="coord">34.10° N, 117.71° W</span>
@@ -366,16 +338,17 @@
         </div>
       </article>
 
-      <article class="project">
+      <article class="project" id="bluehabit">
         <div class="meta">
+          <span class="badge">Hackathon, 4th of 30+</span>
           <strong>Claremont, California</strong><span class="coord">34.10° N, 117.71° W</span>
-          2025 to 2026<br>React, TypeScript, ArcGIS, Esri GeoAI, Claude
-          <div class="links"><a href="https://aashisho1o1.github.io/GeoAssist/">GeoAssist demo</a><a href="https://devpost.com/software/bluehabit">BlueHabit on Devpost</a></div>
+          CGU Ethical AI Hackathon<br>November 2025<br>Esri GeoAI, Claude Sonnet, air quality and satellite data
+          <div class="links"><a href="https://devpost.com/software/bluehabit">Devpost</a></div>
         </div>
         <div>
-          <h3>GeoAssist and BlueHabit</h3>
-          <p>GeoAssist lets people ask plain-English questions of public map data for US hospitals, schools, and cities. A query inspector shows exactly what was asked of the map, and every generated query is checked against the dataset's real field names before it runs.</p>
-          <p>BlueHabit placed fourth of more than 30 teams at the CGU Ethical AI Hackathon in November 2025, built over a weekend with three teammates. It plans walkable routes for wheelchair users and people with vision loss from air quality and satellite data, because the shortest route is often the wrong one for someone in a wheelchair.</p>
+          <h3>BlueHabit</h3>
+          <p>A route planner for wheelchair users and people with vision loss, built over a weekend with three teammates. It placed fourth out of more than 30 teams. The shortest route is often the wrong answer for someone in a wheelchair, so BlueHabit combines air quality and satellite data to suggest routes that are actually walkable.</p>
+          <p>The analysis was the easier half. The harder question was what a person who has never used a mapping tool needs to see in the result, and what to leave out.</p>
         </div>
       </article>
 
@@ -388,14 +361,14 @@
     <div class="prose">
       <h2>Most of my work ends at the same question: who checks the AI before a person trusts it?</h2>
       <p>I studied economics and finance, and one lesson from it stuck. An answer you cannot audit is worse than no answer. Then I spent two and a half years on a shop's ledger, where a wrong entry meant an owner noticed the same day. So when I started building with language models, I kept putting the same piece in the middle: let the model do what it is good at, and let plain code decide what reaches the person.</p>
-      <p>The domains keep changing. SEC filings, chess, hospitals near a wildfire, a student's degree requirements. The question doesn't. At Cal Hacks I'd like to hear where it shows up in what your team is building.</p>
+      <p>The domains keep changing. SEC filings, a shop's books, a student's degree requirements, a person reaching out in a hard moment. The question doesn't. At Cal Hacks I'd like to hear where it shows up in what your team is building.</p>
     </div>
     <div class="sides">
       <div>
         <h3>Where I'm strongest</h3>
         <ul>
           <li>Backends and data pipelines in Python and TypeScript, from the schema through the deploy</li>
-          <li>The checking layer around a model: grounding, evaluation, and tool calls validated before they run</li>
+          <li>The checking layer around a model: grounding, evaluation, and guardrails before and after generation</li>
           <li>Money and records that have to be exactly right, every time</li>
           <li>Shipping to real users and staying for the support call afterward</li>
         </ul>
