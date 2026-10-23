@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aashish Sunar, Cal Hacks 13</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Aashish Sunar builds AI systems that check their own work: SEC filing research, an MCP server, a chess coach on Stockfish, an advising assistant, and a ledger that carried 200+ customers.">
+<meta property="og:title" content="Aashish Sunar, software engineer">
+<meta property="og:description" content="The model proposes. The code decides. Projects, experience, and resume.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: a reviewer's ledger. Light paper for reading, one dark console in the hero that shows the
+     verdicts, then projects grouped by the kind of work a team does, not by sponsor. */
+  :root {
+    --paper: #F5F5F0; --surface: #FFFFFF; --ink: #15181D; --ink-2: #4B5361; --rule: #DADBD3;
+    --accent: #2445C2; --link: #1F3DB0;
+    --kept: #0B6E57; --kept-bg: #DDF1EA; --held: #9A4A07; --held-bg: #FBEBDC; --unk: #5C6370; --unk-bg: #ECEDEF;
+    --console: #14171C; --console-2: #1E232B; --console-text: #EDEFE9; --console-dim: #A7AFBC; --console-rule: #2C333D;
+    --c-kept: #6FD3B5; --c-held: #F2B36B; --c-unk: #B9C0CC;
+    --display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+    --body: "Atkinson Hyperlegible", Arial, "Helvetica Neue", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    --wrap: 72rem; --measure: 40rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #101318; --surface: #171B22; --ink: #ECEEE8; --ink-2: #AAB2BF; --rule: #2A303A;
+      --accent: #8EA6FF; --link: #A9BBFF;
+      --kept: #74D6B8; --kept-bg: #12332B; --held: #F4B877; --held-bg: #3A2614; --unk: #BAC1CC; --unk-bg: #262B33;
+      --console: #0B0D11; --console-2: #161A20; --console-rule: #262C35;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #101318; --surface: #171B22; --ink: #ECEEE8; --ink-2: #AAB2BF; --rule: #2A303A;
+    --accent: #8EA6FF; --link: #A9BBFF;
+    --kept: #74D6B8; --kept-bg: #12332B; --held: #F4B877; --held-bg: #3A2614; --unk: #BAC1CC; --unk-bg: #262B33;
+    --console: #0B0D11; --console-2: #161A20; --console-rule: #262C35;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.65 var(--body); overflow-x: clip; }
+  a { color: var(--link); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  a:hover, a:focus-visible { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+  h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  code { font-family: var(--mono); font-size: 0.88em; }
+  .wrap { max-width: var(--wrap); margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  section { padding-block: clamp(3.5rem, 8vw, 6rem); border-bottom: 1px solid var(--rule); }
+  .eyebrow { font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+  .section-head { display: grid; gap: 0.8rem; max-width: var(--measure); margin-bottom: 2.4rem; }
+  .section-head p { color: var(--ink-2); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 7vw, 5rem); border-bottom: 1px solid var(--rule); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero-text { display: grid; gap: 1.4rem; min-width: 0; }
+  .name { font: 700 1.05rem/1.2 var(--display); letter-spacing: 0.01em; }
+  .name span { font: 400 0.98rem var(--body); color: var(--ink-2); margin-left: 0.4rem; }
+  .hero h1 { font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .lede { font-size: clamp(1.08rem, 1.5vw, 1.2rem); max-width: 34rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0.55rem 1rem; border: 1.5px solid var(--ink); border-radius: 6px;
+    font: 700 0.95rem/1.2 var(--body); color: var(--ink); text-decoration: none; background: transparent; cursor: pointer; }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn:hover { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+  .where { font: 400 0.86rem/1.5 var(--mono); color: var(--ink-2); }
+
+  /* The verdict console */
+  .console { background: var(--console); color: var(--console-text); border: 1px solid var(--console-rule); border-radius: 10px; padding: clamp(1.1rem, 2.4vw, 1.6rem); min-width: 0; }
+  .console-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; padding-bottom: 0.9rem; border-bottom: 1px solid var(--console-rule); }
+  .console-head b { font: 500 0.82rem var(--mono); letter-spacing: 0.04em; }
+  .console-head span { font: 400 0.78rem var(--mono); color: var(--console-dim); }
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.25rem 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--console-rule); }
+  .row:last-child { border-bottom: 0; padding-bottom: 0.2rem; }
+  .row .proj { font: 500 0.74rem var(--mono); color: var(--console-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .row .says { grid-column: 1; font: 400 0.84rem/1.5 var(--mono); overflow-wrap: anywhere; }
+  .row .says i { font-style: normal; color: var(--console-dim); }
+  .row .check { grid-column: 1; font: 400 0.84rem/1.5 var(--mono); color: var(--console-dim); overflow-wrap: anywhere; }
+  .verdict { grid-column: 2; grid-row: 1 / span 3; align-self: center; font: 500 0.72rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.45rem 0.55rem; border-radius: 4px; white-space: nowrap; border: 1.5px solid currentColor; }
+  .verdict.kept { color: var(--console); background: var(--c-kept); border-color: var(--c-kept); }
+  .verdict.held { color: var(--c-held); }
+  .verdict.unk { color: var(--c-unk); border-style: dashed; }
+  .console-foot { margin-top: 0.9rem; font: 400 0.76rem/1.5 var(--mono); color: var(--console-dim); }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .verdict { animation: stamp 0.45s cubic-bezier(.2,.9,.3,1.3) both; }
+    .js .row:nth-child(1) .verdict { animation-delay: 0.25s; } .js .row:nth-child(2) .verdict { animation-delay: 0.5s; }
+    .js .row:nth-child(3) .verdict { animation-delay: 0.75s; } .js .row:nth-child(4) .verdict { animation-delay: 1s; }
+    .js .row:nth-child(5) .verdict { animation-delay: 1.25s; } .js .row:nth-child(6) .verdict { animation-delay: 1.5s; }
+    @keyframes stamp { from { transform: scale(1.35) rotate(-4deg); opacity: 0.25; } to { transform: none; opacity: 1; } }
+  }
+
+  /* ---------- Find your part ---------- */
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .tile { background: var(--surface); padding: 1.4rem 1.4rem 1.5rem; display: grid; gap: 0.55rem; align-content: start; min-width: 0; }
+  .tile h3 { font-size: 1.22rem; font-weight: 700; line-height: 1.2; }
+  .tile p { color: var(--ink-2); font-size: 0.98rem; }
+  .tile .go { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font: 700 0.93rem var(--body); margin-top: 0.2rem; }
+
+  /* ---------- Projects ---------- */
+  .projects { display: grid; gap: clamp(2.5rem, 5vw, 3.5rem); }
+  .project { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); gap: 0 3rem; padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
+  .project:first-child { border-top: 0; padding-top: 0; }
+  .project.featured { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: clamp(1.4rem, 3vw, 2.4rem); }
+  .meta { display: grid; gap: 0.5rem; align-content: start; font-size: 0.9rem; color: var(--ink-2); }
+  .tag { justify-self: start; font: 500 0.72rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); border: 1px solid currentColor; border-radius: 3px; padding: 0.35rem 0.45rem; }
+  .meta .stack { font: 400 0.82rem/1.55 var(--mono); }
+  .meta .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font: 700 0.95rem var(--body); }
+  .project-body { display: grid; gap: 1rem; min-width: 0; }
+  .project h3 { font-size: clamp(1.5rem, 2.6vw, 1.95rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.015em; }
+  .rule { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; font-size: 0.97rem; }
+  .rule dt, .rule dd { margin: 0; padding: 0.7rem 0.9rem; border-top: 1px solid var(--rule); }
+  .rule dt:first-of-type, .rule dt:first-of-type + dd { border-top: 0; }
+  .rule dt { font: 500 0.76rem/1.6 var(--mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); background: var(--paper); }
+  .exchange { margin: 0; padding: 1rem 1.1rem; background: var(--console); color: var(--console-text); border-radius: 6px; font: 400 0.82rem/1.65 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .exchange .who { color: var(--c-held); }
+  .exchange .ok { color: var(--c-kept); }
+  .small-projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--rule); }
+  .mini { display: grid; gap: 0.5rem; align-content: start; min-width: 0; scroll-margin-top: 1rem; }
+  .mini h3 { font-size: 1.25rem; font-weight: 700; }
+  .mini p { color: var(--ink-2); font-size: 0.97rem; }
+  .mini .stack { font: 400 0.8rem/1.5 var(--mono); color: var(--ink-2); }
+  .mini .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font: 700 0.93rem var(--body); }
+
+  /* ---------- Experience ---------- */
+  .roles { display: grid; }
+  .role { display: grid; grid-template-columns: 15rem minmax(0, 46rem); gap: 0.3rem 3rem; padding-block: 1.6rem; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
+  .role:first-child { border-top: 0; padding-top: 0; }
+  .role h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.25; }
+  .role .when { font: 400 0.82rem/1.5 var(--mono); color: var(--ink-2); margin-top: 0.35rem; }
+  .role .title { color: var(--ink-2); font-size: 0.95rem; margin-top: 0.2rem; }
+  .role ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+  .role li { position: relative; padding-left: 1.2rem; }
+  .role li::before { content: ""; position: absolute; left: 0.1rem; top: 0.66em; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .skills { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.55rem 1.5rem; margin: 2.2rem 0 0; padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .skills dt { font-weight: 700; }
+  .skills dd { margin: 0; color: var(--ink-2); }
+  .edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; margin-top: 2.2rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .edu h3 { font-size: 1.15rem; font-weight: 700; }
+  .edu p { color: var(--ink-2); font-size: 0.97rem; margin-top: 0.25rem; }
+
+  /* ---------- Closing ---------- */
+  .closing { background: var(--console); color: var(--console-text); border-bottom: 0; }
+  .closing h2 { color: var(--console-text); }
+  .closing a { color: #FFC877; }
+  .closing-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .closing .big { font: 500 clamp(1.3rem, 2.6vw, 1.75rem)/1.3 var(--display); margin-top: 1.1rem; max-width: 34rem; }
+  .closing p { color: var(--console-dim); }
+  .contact { display: grid; gap: 0.9rem; }
+  .contact .line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; font: 400 0.95rem var(--mono); color: var(--console-text); }
+  .contact .line span { user-select: all; overflow-wrap: anywhere; }
+  .closing .btn { border-color: var(--console-text); color: var(--console-text); }
+  .closing .btn:hover, .closing .btn.primary { background: var(--console-text); color: var(--console); }
+  .closing .btn.primary:hover { background: #FFC877; border-color: #FFC877; }
+  .note { margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--console-rule); font-size: 0.97rem; }
+  #qr { background: #fff; padding: 12px; border-radius: 8px; justify-self: start; }
+  #qr img, #qr canvas { display: block; width: 180px; height: 180px; }
+  .foot { font: 400 0.78rem/1.5 var(--mono); color: var(--console-dim); margin-top: 2.5rem; }
+
+  @media (max-width: 60rem) {
+    .hero-grid, .closing-grid { grid-template-columns: minmax(0, 1fr); }
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .project, .role { grid-template-columns: minmax(0, 1fr); }
+    .meta { padding-bottom: 1rem; }
+    .small-projects { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 40rem) {
+    .tiles, .edu, .skills { grid-template-columns: minmax(0, 1fr); }
+    .skills dd { margin-bottom: 0.5rem; }
+    .rule { grid-template-columns: minmax(0, 1fr); }
+    .rule dt { border-top: 1px solid var(--rule); padding-bottom: 0.2rem; }
+    .rule dd { border-top: 0; padding-top: 0.2rem; }
+    .row { grid-template-columns: minmax(0, 1fr); }
+    .verdict { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 0.35rem; }
+  }
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="name">Aashish Sunar <span>Software engineer, Claremont, California</span></p>
+      <h1>The model proposes. <em>The code decides.</em></h1>
+      <p class="lede">I build AI systems that check their own work before anyone relies on them. A quote from an SEC filing is verified before it ships, a chess explanation is held to what Stockfish found, and a map query is checked against the real schema before it runs.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">See the projects</a>
+        <a class="btn" href="Aashish_Sunar_Resume.pdf">Resume (PDF)</a>
+        <a class="btn" href="https://www.linkedin.com/in/aashish-sunar/">LinkedIn</a>
+        <a class="btn" href="https://github.com/Aashisho1o1">GitHub</a>
+      </div>
+      <p class="where">At Cal Hacks 13.0, Palace of Fine Arts, San Francisco, October 23 to 25. MS at Claremont Graduate University, May 2027.</p>
+    </div>
+
+    <figure class="console" aria-labelledby="console-cap" style="margin:0">
+      <div class="console-head"><b>what happens when a guess is wrong</b><span>six projects, one rule</span></div>
+      <ol class="rows">
+        <li class="row">
+          <span class="proj">RipplX, SEC filings</span>
+          <span class="says"><i>model:</i> cites a sentence from the 10-K</span>
+          <span class="check">check: quote exists at that accession, section, offset</span>
+          <span class="verdict kept">published</span>
+        </li>
+        <li class="row">
+          <span class="proj">Hazard Proximity, MCP server</span>
+          <span class="says"><i>model:</i> where: "TRAUMMA = 'LEVEL I'"</span>
+          <span class="check">check: no field TRAUMMA. Did you mean TRAUMA?</span>
+          <span class="verdict held">sent back</span>
+        </li>
+        <li class="row">
+          <span class="proj">Chess Coach, Stockfish</span>
+          <span class="says"><i>model:</i> explains why a move was a mistake</span>
+          <span class="check">check: the engine's facts don't back it</span>
+          <span class="verdict held">replaced</span>
+        </li>
+        <li class="row">
+          <span class="proj">Advising assistant, CGU</span>
+          <span class="says"><i>model:</i> answers a policy question</span>
+          <span class="check">check: the policy documents don't cover it</span>
+          <span class="verdict held">to an advisor</span>
+        </li>
+        <li class="row">
+          <span class="proj">Retail ledger, Nepal</span>
+          <span class="says"><i>event:</i> payment callback arrives twice</span>
+          <span class="check">check: this sale is already posted</span>
+          <span class="verdict kept">recorded once</span>
+        </li>
+        <li class="row">
+          <span class="proj">AI disclosure audit, EU AI Act</span>
+          <span class="says"><i>page:</i> notice sits on a gradient image</span>
+          <span class="check">check: true contrast can't be measured</span>
+          <span class="verdict unk">unknown, not pass</span>
+        </li>
+      </ol>
+      <figcaption class="console-foot" id="console-cap">Real rules from the work below. The inputs are simplified examples.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<section id="find">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Start where your team works</p>
+      <h2>Pick the problem closest to yours</h2>
+      <p>Each box points to the project that shows it best. Most of them share one habit: the AI suggests, and plain code decides what a person actually sees.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+        <h3>Finance and payments</h3>
+        <p>Every number comes from the filing, and every sale is posted exactly once, even when a payment callback retries.</p>
+        <div class="go"><a href="#ripplx">RipplX</a><a href="#nts">Retail ledger</a></div>
+      </div>
+      <div class="tile">
+        <h3>Agents and tool use</h3>
+        <p>The assistant writes the tool call. The server checks it against the live schema and answers with a correction it can act on.</p>
+        <div class="go"><a href="#mcp">MCP server</a><a href="#cgu">Advising assistant</a></div>
+      </div>
+      <div class="tile">
+        <h3>Safety, trust, and compliance</h3>
+        <p>Measure what a person can actually see, check outputs before and after generation, and say unknown instead of guessing.</p>
+        <div class="go"><a href="#lab">EU AI Act audit</a><a href="#traume">Traume</a></div>
+      </div>
+      <div class="tile">
+        <h3>Games and search engines</h3>
+        <p>A search engine decides what is true, and the language model is only allowed to explain it.</p>
+        <div class="go"><a href="#chess">Chess Coach</a></div>
+      </div>
+      <div class="tile">
+        <h3>Real-time data and maps</h3>
+        <p>Live NASA disaster events matched against 2,000+ alumni, so an office reaches people near a fire the same day.</p>
+        <div class="go"><a href="#maps">Disaster Tracker</a><a href="#maps">GeoAssist</a></div>
+      </div>
+      <div class="tile">
+        <h3>Shipping to real customers</h3>
+        <p>A platform shop owners ran their day on, from the schema through the deploy and the support call afterward.</p>
+        <div class="go"><a href="#nts">Nepal Technical Service</a><a href="#owen">OwenWrites</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Projects</p>
+      <h2>Things I built because the problem bothered me</h2>
+    </div>
+
+    <div class="projects">
+
+      <article class="project featured" id="ripplx">
+        <div class="meta">
+          <span class="tag">Finance</span>
+          <span class="stack">Python, FastAPI, SQLite, React, SEC EDGAR, XBRL</span>
+          <span>Concierge alpha, 2026</span>
+          <div class="links"><a href="https://rippl-x-nine.vercel.app">Live site</a><a href="https://github.com/Aashisho1o1/RipplX">Source</a></div>
+        </div>
+        <div class="project-body">
+          <h3>RipplX, an AI research assistant for SEC filings</h3>
+          <p>RipplX reads a company's 10-K and other SEC filings against the prior period and writes a short brief of what materially changed, the reading an analyst or investor would otherwise repeat every filing season. It also watches for shifts in tone in the risk sections and for patterns such as revenue growing faster than the cash coming in.</p>
+          <dl class="rule">
+            <dt>Model</dt><dd>Chooses which findings matter, writes the headline, and judges importance.</dd>
+            <dt>Code</dt><dd>Checks that each quote exists at the exact filing, section, and character offset, and that every number matches what the company filed in XBRL. The model never does arithmetic.</dd>
+            <dt>On failure</dt><dd>A bad finding is dropped on its own. A provider error or missing coverage holds back the whole brief.</dd>
+          </dl>
+          <p>An optional skeptic model can object to a finding but can never approve one. I built it that way because someone putting money behind a conclusion should be able to see where it came from, and a confident wrong sentence costs more than a missing one. The checks prove the quotes and the numbers, not that the model read them correctly, so every result in the alpha also gets a human review.</p>
+          <p>Next: brokerage connections, starting with Robinhood, so an investor sees how a filing change bears on the holdings they already own.</p>
+        </div>
+      </article>
+
+      <article class="project" id="mcp">
+        <div class="meta">
+          <span class="tag">Agents and tools</span>
+          <span class="stack">TypeScript, MCP SDK, NASA EONET, Esri Living Atlas</span>
+          <span>October 2026</span>
+          <div class="links"><a href="https://aashisho1o1.github.io/geoassist-mcp/">Live map</a><a href="https://github.com/Aashisho1o1/geoassist-mcp">Source</a></div>
+        </div>
+        <div class="project-body">
+          <h3>Hazard Proximity, an MCP server</h3>
+          <p>When a wildfire is burning, the first questions are simple. Which hospitals are close to it? Which schools might need to close? This server lets an assistant such as Claude Desktop answer them in plain English from public data, closest first, with phone numbers. There is no language model inside the server. The assistant writes the filter, and plain TypeScript checks it against the live layer schema before anything reaches ArcGIS.</p>
+<pre class="exchange" aria-label="Example tool call and response"><span class="who">assistant calls</span>  find_nearby(dataset: "hospitals", where: "TRAUMMA = 'LEVEL I'")
+<span class="who">server returns</span>   Unknown field 'TRAUMMA'. Did you mean 'TRAUMA'?
+<span class="who">assistant retries</span> where: "TRAUMA LIKE 'LEVEL I%'"  <span class="ok">sorted list returned</span></pre>
+          <p>Testing against the live hospital layer turned up a quieter problem. The trauma field is free text, and Level I alone is written 16 different ways. An exact filter found 98 open Level I hospitals and silently missed 142. Nothing errors, the list is just shorter. So the server now hands the model every value of a coded field and tells it to match every spelling.</p>
+        </div>
+      </article>
+
+      <article class="project" id="chess">
+        <div class="meta">
+          <span class="tag">Games and search</span>
+          <span class="stack">Java 21, Spring Boot 3, Stockfish 16, Claude</span>
+          <span>September 2026</span>
+          <div class="links"><a href="https://github.com/Aashisho1o1/Chess">Source</a></div>
+        </div>
+        <div class="project-body">
+          <h3>Chess Coach</h3>
+          <p>A coaching service where Stockfish decides what is true and the language model decides only how to say it. The engine's analysis becomes a fixed set of facts about each move, Claude turns those facts into an explanation, and a verifier checks the explanation against the facts. If it fails, a plain template takes its place.</p>
+          <p>Most of the real work was in the engine's numbers. Scores are converted to White's point of view once, at the boundary. Mate scores sit on the same scale as material instead of being treated as material. A checkmate on the board is reported as the end of the game, not as a blunder. And because a famous move from Morphy's Opera Game is flagged as a blunder at depth 12 but not at depth 16, quick shallow searches are for responsiveness, and the coach waits for deeper search before calling a move a mistake.</p>
+        </div>
+      </article>
+
+      <article class="project" id="traume">
+        <div class="meta">
+          <span class="tag">Safety</span>
+          <span class="stack">Node.js, React, OpenAI</span>
+          <span>2026 prototype</span>
+          <div class="links"><a href="https://github.com/Aashisho1o1/Trauma-Informed-Chatbot">Source</a></div>
+        </div>
+        <div class="project-body">
+          <h3>Traume, a trauma-informed support chatbot</h3>
+          <p>A prototype for people in emotional distress, where a careless sentence does real harm. Deterministic crisis checks run before the model is called, and a crisis gets emergency resources immediately. The model works under a prompt that rules out victim blaming, minimizing, and legal or medical directives. Its reply then passes a second set of rules and an optional review, and anything unsafe or unreadable is replaced with a safe fallback.</p>
+          <p>Conversations are not stored on the server, and there are no cookies or analytics. An adversarial test suite covers victim blaming, overpromised confidentiality, suggestions to contact an abuser, and crisis false positives and negatives, and the run fails if the rule-based layer drops below 90 percent.</p>
+        </div>
+      </article>
+
+      <article class="project" id="owen">
+        <div class="meta">
+          <span class="tag">Product</span>
+          <span class="stack">React, TypeScript, FastAPI, vector search</span>
+          <span>2025 to present</span>
+          <div class="links"><a href="https://github.com/Aashisho1o1/Owen">Source</a></div>
+        </div>
+        <div class="project-body">
+          <h3>OwenWrites, an AI writing platform</h3>
+          <p>A writing platform that helps novelists keep each character's voice consistent across a full manuscript, with OpenAI, Gemini, and locally run models behind one interface so a writer can move a draft between them.</p>
+          <p>The manuscript is split into passages and indexed in a vector database, so when a writer asks how a character has spoken before, the answer is drawn from their own pages rather than from the model's guess.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="small-projects" id="maps">
+      <div class="mini">
+        <p class="eyebrow">Real-time data</p>
+        <h3>Alumni Disaster Tracker</h3>
+        <p>Reads NASA's live disaster feed and finds which of 2,000+ alumni live near an active wildfire, earthquake, or storm. The public rebuild checks 2,000 alumni against every event in about 10 milliseconds, down from 15.5 seconds, by doing the distance math in one NumPy operation.</p>
+        <span class="stack">Python, NASA EONET, NumPy, Streamlit</span>
+        <div class="links"><a href="https://8gkea33ouexurck54ybeah.streamlit.app/">Live demo</a><a href="https://github.com/Aashisho1o1/ADT">Source</a></div>
+      </div>
+      <div class="mini">
+        <p class="eyebrow">Maps</p>
+        <h3>GeoAssist</h3>
+        <p>Plain-English questions against public ArcGIS data for US hospitals, schools, and cities. A query inspector shows exactly what was asked of the map, and every generated query is checked against real field names before it runs.</p>
+        <span class="stack">React, TypeScript, ArcGIS components, Calcite</span>
+        <div class="links"><a href="https://aashisho1o1.github.io/GeoAssist/">Live demo</a><a href="https://github.com/Aashisho1o1/GeoAssist">Source</a></div>
+      </div>
+      <div class="mini">
+        <p class="eyebrow">Hackathon, 4th of 30+</p>
+        <h3>BlueHabit</h3>
+        <p>Built in a weekend with three teammates at the CGU Ethical AI Hackathon, November 2025. A route planner on Esri GeoAI and Claude Sonnet that uses air quality and satellite data to find walkable routes for wheelchair users and people with vision loss.</p>
+        <span class="stack">Esri GeoAI, Claude Sonnet</span>
+        <div class="links"><a href="https://devpost.com/software/bluehabit">Devpost</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Experience</p>
+      <h2>Where this habit came from</h2>
+    </div>
+    <div class="roles">
+      <article class="role" id="cgu">
+        <div><h3>Claremont Graduate University</h3><p class="title">Software Developer, Graduate Assistant</p><p class="when">Aug 2025 to present</p></div>
+        <ul>
+          <li>Built the academic advising assistant in Python and FastAPI around the questions advisors field most often. Over 500 questions handled, and roughly 40 percent fewer of them now reach a human advisor.</li>
+          <li>Every answer is referenced against the official policy documents before it goes out. Questions those documents do not cover are held back for a conversation with an advisor, so no student acts on a misreading of policy.</li>
+          <li>Questions are routed by topic to guidance written for that area of policy, which is what made answers consistent from one student to the next. Responses arrive in under two seconds, and a failed step is retried rather than dropped.</li>
+        </ul>
+      </article>
+      <article class="role" id="lab">
+        <div><h3>AI for Humanity Lab, CGU</h3><p class="title">Software Engineer, AI Research Fellow</p><p class="when">Sep 2025 to present</p></div>
+        <ul>
+          <li>Built a tool in TypeScript and Playwright that checks whether a website's AI disclosure, the notice required under EU AI Act Article 50, can actually be seen. Existing scanners only confirm the text exists somewhere in the page code, which passes an 8px gray notice below the fold.</li>
+          <li>The contrast check returns an explicit unknown when the background is a gradient or an image, because a compliance tool that guesses will eventually pass something it never measured.</li>
+          <li>Lead the organization of the CGU Hackathon, open to students across the Claremont Colleges, and write the lab's quarterly plain-language report on what new AI releases mean for transparency and trust.</li>
+        </ul>
+      </article>
+      <article class="role" id="nts">
+        <div><h3>Nepal Technical Service</h3><p class="title">Full Stack Engineer, Co-Founder</p><p class="when">Jan 2023 to Aug 2025</p></div>
+        <ul>
+          <li>Replaced the spreadsheets a retail business ran on with a sales, inventory, and accounting platform in Next.js, TypeScript, and PostgreSQL, plus a Flutter Android app for the shop floor. It carried 200+ customers.</li>
+          <li>Every entry posts through a double-entry ledger that refuses any write where debits and credits differ. Money is stored as exact decimals down to the paisa, with gold tracked by weight in its own sub-ledger, because rounding drift is the kind of error that surfaces six months later in a reconciliation.</li>
+          <li>Each sale is recorded exactly once, even with two clerks at the counter and a payment callback retrying, and invoice numbers stay gap-free for the auditor. A closed period can only be fixed with a correcting entry, never an edit.</li>
+        </ul>
+      </article>
+      <article class="role">
+        <div><h3>Soka University of America</h3><p class="title">Full Stack Developer, Office of Alumni Relations</p><p class="when">Aug 2024 to Jul 2025</p></div>
+        <ul>
+          <li>Wrote a real-time alerting service in Python and PostgreSQL that reads NASA's live disaster feed, checks each event against the alert rules, and notifies any of 2,000+ alumni near the affected region the same day.</li>
+          <li>Set up CI/CD with GitHub Actions and environment-scoped credentials, and a one-hour cache on the NASA feed that cut the repeated API calls driving up usage.</li>
+        </ul>
+      </article>
+    </div>
+
+    <dl class="skills">
+      <dt>Languages</dt><dd>Python, TypeScript, JavaScript, Java, SQL, C, C++</dd>
+      <dt>Web and backend</dt><dd>React, Next.js, Node.js, Express, FastAPI, Spring Boot, REST, WebSockets</dd>
+      <dt>AI systems</dt><dd>Anthropic, OpenAI, and Gemini APIs, MCP, agent workflows, retrieval over vector databases, LLM-as-judge checks</dd>
+      <dt>Data and infra</dt><dd>PostgreSQL, SQLite, MySQL, MongoDB, Redis, AWS, Docker, GitHub Actions, Playwright</dd>
+    </dl>
+
+    <div class="edu">
+      <div><h3>Claremont Graduate University</h3><p>MS in AI-Driven Innovation (Information Systems and Technology). Graduating May 2027.</p></div>
+      <div><h3>Soka University of America</h3><p>BA in Economics and Finance, May 2024. Financial modeling, regression analysis, financial economics.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="contact">
+  <div class="wrap closing-grid">
+    <div>
+      <p class="eyebrow" style="color:var(--console-dim)">This weekend</p>
+      <h2>I'm at Cal Hacks through Sunday.</h2>
+      <p class="big" style="color:var(--console-text)">If something here is close to what your team is building, I'd like to hear where it breaks for you.</p>
+      <p style="margin-top:1rem">Available for full-time or part-time roles from December 2026, graduating May 2027. Open to software engineering, AI engineering, forward-deployed, and fintech roles.</p>
+      <p class="note">On November 13 and 14 I'm helping run the CGU Transdisciplinary AI Hackathon in Claremont. If your team wants to meet students across the Claremont Colleges, I'd be glad to make the introduction.</p>
+    </div>
+    <div class="contact">
+      <div class="line"><span id="email">aashishsunar.01@gmail.com</span><button class="btn" type="button" id="copy">Copy email</button></div>
+      <div class="actions">
+        <a class="btn primary" href="Aashish_Sunar_Resume.pdf">Resume (PDF)</a>
+        <a class="btn" href="https://www.linkedin.com/in/aashish-sunar/">LinkedIn</a>
+        <a class="btn" href="https://github.com/Aashisho1o1">GitHub</a>
+        <button class="btn" type="button" id="qr-btn" hidden>Show QR code</button>
+      </div>
+      <div id="qr" hidden></div>
+    </div>
+  </div>
+  <div class="wrap"><p class="foot">One hand-written HTML file. No tracking, no build step.</p></div>
+</section>
+
+</main>
+
+<script>
+document.documentElement.classList.add("js");
+
+/* Copy email. Falls back to selecting the text if the clipboard is refused. */
+(function () {
+  var btn = document.getElementById("copy"), el = document.getElementById("email");
+  btn.addEventListener("click", function () {
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy email"; }, 1800); };
+    var select = function () { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected"; };
+    try { navigator.clipboard.writeText(el.textContent).then(done, select); } catch (e) { select(); }
+  });
+})();
+
+/* QR code of this page, for a recruiter to scan off a phone. Only offered where the page is public. */
+(function () {
+  if (!/github\.io$/.test(location.hostname)) return;
+  var btn = document.getElementById("qr-btn"), box = document.getElementById("qr");
+  btn.hidden = false;
+  btn.addEventListener("click", function () {
+    if (!box.hidden) { box.hidden = true; btn.textContent = "Show QR code"; return; }
+    var draw = function () {
+      box.innerHTML = "";
+      new QRCode(box, { text: location.origin + location.pathname, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+      box.hidden = false; btn.textContent = "Hide QR code";
+    };
+    if (window.QRCode) return draw();
+    var s = document.createElement("script");
+    s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+    s.onload = draw;
+    document.head.appendChild(s);
+  });
+})();
+</script>
+
+</body>
+</html>
